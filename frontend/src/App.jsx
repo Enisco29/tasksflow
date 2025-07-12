@@ -1,35 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Layout from "./components/Layout.jsx";
+import Login from "./components/Login.jsx";
+import SignUp from "./components/SignUp.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(() => {
+    const stored = localStorage.getItem("currentUser");
+    return stored ? JSON.parse(stored) : null;
+  });
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem("currentUser");
+    }
+  }, [currentUser]);
 
+  const handleAuthSubmit = (data) => {
+    const user = {
+      email: data.email,
+      name: data.name || "User",
+      avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        data.name || "User"
+      )}&background=random`,
+    };
+    setCurrentUser(user);
+    navigate("/", { replace: true });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+    navigate("/login", { replace: true });
+  };
+
+  const ProtectedLayout = () => {
+    <Layout user={currentUser} onLogout={handleLogout}>
+      <Outlet />
+    </Layout>;
+  };
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Layout />} />
+      <Route
+        path="/login"
+        element={
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <Login
+              onSubmit={handleAuthSubmit}
+              onSwitchMode={() => navigate("/signup")}
+            />
+          </div>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <SignUp
+              onSubmit={handleAuthSubmit}
+              onSwitchMode={() => navigate("/login")}
+            />
+          </div>
+        }
+      />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
