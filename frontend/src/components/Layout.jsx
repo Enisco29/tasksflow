@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import { Circle, Clock, TrendingUp } from "lucide-react";
+import { Circle, Clock, TrendingUp, Zap } from "lucide-react";
 
 const Layout = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
@@ -68,19 +68,21 @@ const Layout = ({ user, onLogout }) => {
 
   //statistics card
   const StatCard = ({ title, value, icon }) => {
-    <div className="p-2 sm:p-3 rounded-xl bg-white shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300 hover:border-purple-100 group">
-      <div className="flex items-center gap-2">
-        <div className="p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 group-hover:from-fuchsia-500/20  group-hover:to-purple-500/20">
-          {icon}
-        </div>
-        <div className="min-w-0">
-          <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent ">
-            {value}
-          </p>
-          <p className="text-xs text-gray-500 font-medium">{title}</p>
+    return (
+      <div className="p-2 sm:p-3 rounded-xl bg-white shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300 hover:border-purple-100 group">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 group-hover:from-fuchsia-500/20  group-hover:to-purple-500/20">
+            {icon}
+          </div>
+          <div className="min-w-0">
+            <p className="text-lg sm:text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent ">
+              {value}
+            </p>
+            <p className="text-xs text-gray-500 font-medium">{title}</p>
+          </div>
         </div>
       </div>
-    </div>;
+    );
   };
 
   //Loading
@@ -123,7 +125,7 @@ const Layout = ({ user, onLogout }) => {
                 Task Statistics
               </h3>
 
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6 ">
                 <StatCard
                   title="Total Tasks"
                   value={stats.totalCount}
@@ -162,7 +164,7 @@ const Layout = ({ user, onLogout }) => {
                     <Circle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-500 fill-purple-500" />
                     Task progress
                   </span>
-                  <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-8.5 sm:px-2 rounded-full">
+                  <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 sm:px-2 rounded-full">
                     {stats.completedTask}/{stats.totalCount}
                   </span>
                 </div>
@@ -214,7 +216,7 @@ const Layout = ({ user, onLogout }) => {
                 ))}
                 {tasks.length === 0 && (
                   <div className="text-center py-4 sm:py-6 px-2">
-                    <div className="w-12 h-12 sm:w-36 sm:not-visited:h-36 mx-auto sm:mb-4 rounded-full bg-purple-100 flex items-center justify-center">
+                    <div className="w-12 h-12 sm:w-20 sm:h-20 mx-auto sm:mb-4 rounded-full bg-purple-100 flex items-center justify-center">
                       <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500" />
                     </div>
                     <p className="text-sm text-gray-500">No recent activity</p>

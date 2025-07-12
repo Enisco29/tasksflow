@@ -67,13 +67,6 @@ const Navbar = ({ user = {}, onLogout }) => {
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse" />
               </div>
 
-              <div className="text-left hidden md:block">
-                <p className="text-sm font-medium text-gray-500">{user.name}</p>
-                <p className="text-xs text-gray-500 font-normal">
-                  {user.email}
-                </p>
-              </div>
-
               <ChevronDown
                 className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${
                   menuOpen ? "rotate-100" : ""
