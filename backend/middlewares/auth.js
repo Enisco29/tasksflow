@@ -5,8 +5,8 @@ import User from "../model/userModel.js";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const authMiddleware = async (req, res, next) => {
-  const authHeader = req.header.authorization;
-  if (!authHeader || !authHeader.startWith("Bearer")) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
     return res.status(401).json({
       success: false,
       message: "Not authorized, token missing",
