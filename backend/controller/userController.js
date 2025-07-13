@@ -137,6 +137,10 @@ export const getCurrentUser = async (req, res) => {
     }
     return res.status(201).json({
       success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.log(error.message);
