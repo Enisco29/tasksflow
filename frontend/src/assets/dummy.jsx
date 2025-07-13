@@ -19,7 +19,7 @@ import {
 
 // BACKEND TEST
 // DUMMY DATA
-const backendDummy = [
+export const backendDummy = [
   {
     title: "Buy groceries",
     description: "Milk, bread, eggs, and spinach",
@@ -127,7 +127,7 @@ export const SIDEBAR_CLASSES = {
 };
 
 export const LINK_CLASSES = {
-  base: "group flex items-center px-4 py-3 rounded-xl transition-all duration-300",
+  base: "group flex items-center px-4 py-3 gap-3 rounded-xl transition-all duration-300",
   active:
     "bg-gradient-to-r from-purple-50 to-fuchsia-50 border-l-4 border-purple-500 text-purple-700 font-medium shadow-sm",
   inactive: "hover:bg-purple-50/50 text-gray-600 hover:text-purple-700",

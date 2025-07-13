@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Circle, Clock, TrendingUp, Zap } from "lucide-react";
 
@@ -9,6 +9,8 @@ const Layout = ({ user, onLogout }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setloading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const fetchTasks = useCallback(async () => {
     setloading(true);
@@ -99,12 +101,20 @@ const Layout = ({ user, onLogout }) => {
         <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-100 max-w-md ">
           <p className="font-medium mb-2">Error loading tasks</p>
           <p className="text-sm">{error}</p>
-          <button
-            onClick={fetchTasks}
-            className="mt-4 py-2 px-4 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
-          >
-            Try Again
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={fetchTasks}
+              className="mt-4 py-2 px-4 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
+            >
+              Try Again
+            </button>
+            <button
+              onClick={navigate("/login")}
+              className="mt-4 py-2 px-4 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors"
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     );

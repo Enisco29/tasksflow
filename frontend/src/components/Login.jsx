@@ -86,7 +86,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
   };
 
   return (
-    <div className="max-w-md w-full bg-white shadow-lg border border-purple-100 rounded-xl p-8">
+    <div className="max-w-md w-full bg-white shadow-lg border border-purple-100 max-sm:m-4 rounded-xl p-8">
       <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
       <div className="mb-6 text-center">
         <div className="w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full mx-auto flex items-center justify-center mb-4">
@@ -98,7 +98,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
         </p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {FIELDERS.map(({ name, type, placeholder, icon: Icon, isPassword }) => (
+        {FIELDERS.map(({ name, type, placeholder, icon: Icon }) => (
           <div key={name} className={INPUTWRAPPER}>
             <Icon className="text-purple-500 w-5 h-5 mr-2" />
             <input
@@ -156,11 +156,11 @@ const Login = ({ onSubmit, onSwitchMode }) => {
       </form>
 
       <p className="text-center text-sm text-gray-600 mt-6">
-        Don't have an account{" "}
+        Don't have an account?{" "}
         <button
           type="button"
           onClick={handleSwitchMode}
-          className="text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors"
+          className="text-purple-600 hover:text-purple-700 hover:underline  font-medium transition-colors"
         >
           Sign up
         </button>
