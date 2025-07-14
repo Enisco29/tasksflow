@@ -146,7 +146,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
 
         <button type="submit" className={BUTTONCLASSES} disabled={loading}>
           {loading ? (
-            "Logging Ip..."
+            "Logging In..."
           ) : (
             <>
               <LogIn className="w-4 h-4" /> Login

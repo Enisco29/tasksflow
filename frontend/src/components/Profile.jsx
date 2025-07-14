@@ -199,7 +199,7 @@ const Profile = ({ setCurrentUser, onLogout }) => {
                 Change Password
               </button>
 
-              <div className="mt-8 pt-8 border-t border-purple-100">
+              <div className=" pt-8 border-t border-purple-100">
                 <h3 className="text-red-600 font-semibold mb-4 flex items-center gap-2">
                   <LogOut className="w-4 h-4" />
                   Danger Zone
