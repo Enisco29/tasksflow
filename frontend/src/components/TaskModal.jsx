@@ -61,7 +61,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      if (taskData.dueDate < 3) {
+      if (taskData.dueDate && new Date(taskData.dueDate) < new Date().setHours(0, 0, 0, 0)) {
         setError("Due date cannot be in the past.");
         return;
       }
@@ -83,7 +83,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         }
         const saved = await resp.json();
         onSave?.(saved);
-        onclose();
+        onClose();
       } catch (error) {
         console.error(error);
         setError(error.message || "An unexpected error occured");
@@ -91,7 +91,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         setLoading(false);
       }
     },
-    [taskData, today, getHeaders, onLogout, onSave, onclose]
+    [taskData, today, getHeaders, onLogout, onSave, onClose]
   );
 
   if (!isOpen) return null;

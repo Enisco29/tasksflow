@@ -246,6 +246,11 @@ const Dashboard = () => {
         }}
         taskToEdit={selectedTask}
         onSave={handleTaskSave}
+        onLogout={() => {
+          // Handle logout if needed
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }}
       />
     </div>
   );
