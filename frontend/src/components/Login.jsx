@@ -1,13 +1,13 @@
 import { Eye, EyeOff, Icon, Lock, LogIn, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { BUTTONCLASSES, INPUTWRAPPER } from "../assets/dummy";
-import axios from "axios";
+import { useAppContext } from "../../context/AppContext";
 
 const INITIAL_FORM = { email: "", password: "" };
 
 const Login = ({ onSubmit, onSwitchMode }) => {
+  const { navigate, axios } = useAppContext();
   const [formData, setFormData] = useState(INITIAL_FORM);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -24,16 +24,13 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     },
   ];
 
-  const navigate = useNavigate();
-  const url = "http://localhost:4000";
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
     if (token) {
       async () => {
         try {
-          const { data } = await axios.get(`${url}/api/users/me`, {
+          const { data } = await axios.get("/api/users/me", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -62,7 +59,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     setloading(true);
 
     try {
-      const { data } = await axios.post(`${url}/api/users/login`, formData);
+      const { data } = await axios.post(`/api/users/login`, formData);
       if (!data.token) throw new Error(data.message || "Login failed");
 
       localStorage.setItem("token", data.token);

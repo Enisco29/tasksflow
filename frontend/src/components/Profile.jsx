@@ -9,7 +9,6 @@ import {
   SECTION_WRAPPER,
   securityFields,
 } from "../assets/dummy";
-import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   Icon,
@@ -19,12 +18,11 @@ import {
   Shield,
   UserCircle,
 } from "lucide-react";
-import axios from "axios";
 import { useEffect, useState } from "react";
-
-const API_URL = "http://localhost:4000";
+import { useAppContext } from "../../context/AppContext";
 
 const Profile = ({ setCurrentUser, onLogout }) => {
+  const { axios, navigate } = useAppContext();
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -34,13 +32,12 @@ const Profile = ({ setCurrentUser, onLogout }) => {
     new: "",
     confirm: "",
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
     axios
-      .get(`${API_URL}/api/users/me`, {
+      .get("/api/users/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +55,7 @@ const Profile = ({ setCurrentUser, onLogout }) => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.put(
-        `${API_URL}/api/users/profile`,
+        "/api/users/profile",
         {
           name: profile.name,
           email: profile.email,
@@ -92,7 +89,7 @@ const Profile = ({ setCurrentUser, onLogout }) => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.put(
-        `${API_URL}/api/users/password`,
+        "/api/users/password",
         {
           currentPassword: password.current,
           newPassword: password.new,

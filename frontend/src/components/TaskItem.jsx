@@ -10,8 +10,6 @@ import axios from "axios";
 import { format, isToday } from "date-fns";
 import TaskModal from "./TaskModal";
 
-const API_BASE = "http://localhost:4000/api/tasks";
-
 const TaskItem = ({
   task,
   onRefresh,
@@ -52,7 +50,7 @@ const TaskItem = ({
     const newStatus = isCompleted ? "No" : "Yes";
     try {
       await axios.put(
-        `${API_BASE}/${task._id}/gp`,
+        `/api/tasks/${task._id}/gp`,
         { completed: newStatus },
         {
           headers: getAuthHeaders(),
@@ -75,7 +73,7 @@ const TaskItem = ({
         dueDate,
         completed,
       }) => ({ title, description, priority, dueDate, completed }))(updateTask);
-      await axios.put(`${API_BASE}/${task._id}/gp`, payload, {
+      await axios.put(`/api/tasks/${task._id}/gp`, payload, {
         headers: getAuthHeaders(),
       });
       setShowMenu(false);
@@ -88,7 +86,7 @@ const TaskItem = ({
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_BASE}/${task._id}/gp`, {
+      await axios.delete(`/api/tasks/${task._id}/gp`, {
         headers: getAuthHeaders(),
       });
       onRefresh?.();

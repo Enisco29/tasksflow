@@ -1,5 +1,5 @@
 import { Icon, UserPlus } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   BUTTONCLASSES,
   FIELDS,
@@ -9,7 +9,6 @@ import {
 } from "../assets/dummy";
 import axios from "axios";
 
-const API_URL = "http://localhost:4000";
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
 const SignUp = ({ onSwitchMode }) => {
@@ -23,10 +22,7 @@ const SignUp = ({ onSwitchMode }) => {
     setMessage({ text: "", type: "" });
 
     try {
-      const { data } = await axios.post(
-        `${API_URL}/api/users/register`,
-        formData
-      );
+      const { data } = await axios.post("/api/users/register", formData);
       if (data.success) {
         console.log("SignUp Successfully");
         setMessage({

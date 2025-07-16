@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 
-const API_BASE = "http://localhost:4000/api/tasks";
+const API_BASE = `${import.meta.env.VITE_BACKEND_URL}/api/tasks`;
 
 const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   const [taskData, setTaskData] = useState(DEFAULT_TASK);
@@ -61,7 +61,10 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-      if (taskData.dueDate && new Date(taskData.dueDate) < new Date().setHours(0, 0, 0, 0)) {
+      if (
+        taskData.dueDate &&
+        new Date(taskData.dueDate) < new Date().setHours(0, 0, 0, 0)
+      ) {
         setError("Due date cannot be in the past.");
         return;
       }

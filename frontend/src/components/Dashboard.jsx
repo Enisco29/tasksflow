@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   ADD_BUTTON,
   EMPTY_STATE,
@@ -21,13 +21,12 @@ import {
 } from "../assets/dummy";
 import { CalendarIcon, Filter, HomeIcon, Icon, Plus } from "lucide-react";
 import { useOutletContext } from "react-router-dom";
-import axios from "axios";
 import TaskModal from "./TaskModal";
 import TaskItem from "./TaskItem";
-
-const API_URL = "http://localhost:4000/api/tasks";
+import { useAppContext } from "../../context/AppContext";
 
 const Dashboard = () => {
+  const { axios } = useAppContext();
   const { tasks, refreshTasks } = useOutletContext();
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -83,7 +82,7 @@ const Dashboard = () => {
     async (taskData) => {
       try {
         if (taskData.id)
-          await axios.put(`${API_URL}/${taskData.id}/gp`, taskData);
+          await axios.put(`/api/tasks/${taskData.id}/gp`, taskData);
         refreshTasks();
         setShowModal(false);
         setSelectedTask(null);

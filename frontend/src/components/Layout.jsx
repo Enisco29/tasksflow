@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { Outlet, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Outlet } from "react-router-dom";
 import { Circle, Clock, TrendingUp, Zap } from "lucide-react";
+import { useAppContext } from "../../context/AppContext";
 
 const Layout = ({ user, onLogout }) => {
+  const { axios, navigate } = useAppContext();
+
   const [tasks, setTasks] = useState([]);
   const [loading, setloading] = useState(true);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   const fetchTasks = useCallback(async () => {
     setloading(true);
@@ -20,7 +20,7 @@ const Layout = ({ user, onLogout }) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No auth token found");
 
-      const { data } = await axios.get("http://localhost:4000/api/tasks/gp", {
+      const { data } = await axios.get("/api/tasks/gp", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
