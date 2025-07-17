@@ -1,13 +1,24 @@
 import mongoose from "mongoose";
 
-//function to connect database
+let isConnected = false;
+
 export const connectDB = async () => {
+  if (isConnected) {
+    console.log("✅ Using existing MongoDB connection");
+    return;
+  }
+
   try {
-    mongoose.connection.on("connected", () =>
-      console.log("Database Connected")
-    );
-    await mongoose.connect(`${process.env.MONGODB_URI}/taskflow`);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "taskflow", // ✅ set the database name here
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    isConnected = true;
+    console.log("✅ MongoDB connected");
   } catch (error) {
-    console.log(error.message);
+    console.error("❌ MongoDB connection failed:", error.message);
+    throw error;
   }
 };
