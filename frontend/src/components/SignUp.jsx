@@ -28,7 +28,7 @@ const SignUp = ({ onSwitchMode }) => {
       if (data.success) {
         console.log("SignUp Successfully");
         setMessage({
-          text: "Registration successfull!! You can now log in.",
+          text: "Registration successfull!!",
           type: "success",
         });
         navigate("/");
