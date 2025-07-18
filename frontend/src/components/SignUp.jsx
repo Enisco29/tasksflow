@@ -8,6 +8,7 @@ import {
   MESSAGE_SUCCESS,
 } from "../assets/dummy";
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
@@ -15,6 +16,7 @@ const SignUp = ({ onSwitchMode }) => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [loading, setloading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +28,11 @@ const SignUp = ({ onSwitchMode }) => {
       if (data.success) {
         console.log("SignUp Successfully");
         setMessage({
-          text: "Registration successfull!! You can now log in.",
+          text: "Registration successfull!!",
           type: "success",
         });
+navigate("/")
+
       }
     } catch (error) {
       console.error(error);
