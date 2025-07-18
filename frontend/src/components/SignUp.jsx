@@ -29,7 +29,6 @@ const SignUp = ({ onSwitchMode }) => {
           text: "Registration successfull!! You can now LogIn",
           type: "success",
         });
-        navigate("/");
       }
     } catch (error) {
       console.error(error);
