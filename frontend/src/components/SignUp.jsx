@@ -8,10 +8,12 @@ import {
   MESSAGE_SUCCESS,
 } from "../assets/dummy";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
 const SignUp = ({ onSwitchMode }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [loading, setloading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
@@ -29,6 +31,7 @@ const SignUp = ({ onSwitchMode }) => {
           text: "Registration successfull!! You can now log in.",
           type: "success",
         });
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
